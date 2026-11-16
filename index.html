@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Mark Calla — Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
-      --bg: #02060f;
-      --surface: #0b1423;
-      --surface-2: #111d2d;
-      --text: #ffffff;
-      --muted: #a2a9b8;
-      --soft: #e2ebf5;
-      --amber: #f0ad62;
-      --cyan: #65dce6;
-      --rose: #d46a78;
-      --border: rgba(196, 214, 232, .18);
+      --bg: #1A1E29;
+      --surface: #132D46;
+      --surface-2: #132D46;
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, .68);
+      --soft: #FFFFFF;
+      --accent: #01C38E;
+      --border: rgba(255, 255, 255, .16);
       --ease: cubic-bezier(.16, 1, .3, 1);
     }
 
@@ -34,7 +39,7 @@
       overflow-x: hidden;
       background: var(--bg);
       color: var(--text);
-      font-family: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-family: "Poppins", system-ui, sans-serif;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
@@ -49,7 +54,7 @@
     }
 
     :focus-visible {
-      outline: 2px solid var(--cyan);
+      outline: 2px solid var(--accent);
       outline-offset: 4px;
     }
 
@@ -65,23 +70,15 @@
 
     .signal {
       fill: none;
+      stroke: var(--accent);
       stroke-linecap: round;
       stroke-width: .22;
       stroke-dasharray: 1.2 3;
       animation: signal-flow 9s linear infinite;
     }
 
-    .signal.amber {
-      stroke: var(--amber);
-    }
-
-    .signal.cyan {
-      stroke: var(--cyan);
-      animation-duration: 11s;
-    }
-
     .signal.dim {
-      opacity: .22;
+      opacity: .2;
       stroke-width: .12;
     }
 
@@ -114,7 +111,7 @@
       position: fixed;
       inset: 0;
       z-index: -1;
-      background: rgba(2, 6, 15, .52);
+      background: rgba(26, 30, 41, .62);
       pointer-events: none;
     }
 
@@ -135,8 +132,9 @@
       align-items: center;
       gap: 8px;
       color: var(--text);
+      font-family: "Quicksand", sans-serif;
       font-size: 1rem;
-      font-weight: 650;
+      font-weight: 700;
       letter-spacing: .12em;
     }
 
@@ -157,6 +155,7 @@
       list-style: none;
       color: var(--soft);
       font-size: .78rem;
+      font-weight: 500;
     }
 
     nav a {
@@ -164,7 +163,7 @@
     }
 
     nav a:hover {
-      color: var(--cyan);
+      color: var(--accent);
       transform: translateY(-2px);
     }
 
@@ -180,9 +179,9 @@
       gap: 10px;
       min-height: 42px;
       padding: 10px 18px;
-      border: 1px solid rgba(196, 214, 232, .55);
+      border: 1px solid rgba(255, 255, 255, .45);
       border-radius: 999px;
-      background: rgba(255, 255, 255, .08);
+      background: rgba(19, 45, 70, .75);
       color: var(--text);
       font-size: .78rem;
       font-weight: 600;
@@ -192,8 +191,8 @@
 
     .button:hover {
       color: var(--bg);
-      background: var(--cyan);
-      border-color: var(--cyan);
+      background: var(--accent);
+      border-color: var(--accent);
       transform: translateY(-3px);
     }
 
@@ -213,7 +212,8 @@
       justify-content: center;
       gap: 8px;
       margin-bottom: 17px;
-      color: var(--amber);
+      color: var(--accent);
+      font-family: "Quicksand", sans-serif;
       font-size: .7rem;
       font-weight: 700;
       letter-spacing: .15em;
@@ -224,15 +224,17 @@
       content: "";
       width: 24px;
       height: 1px;
-      background: var(--amber);
+      background: var(--accent);
     }
 
     .hero h1 {
       max-width: 760px;
+      color: var(--text);
+      font-family: "Quicksand", sans-serif;
       font-size: clamp(3rem, 6vw, 5.6rem);
       line-height: .94;
       letter-spacing: -.09em;
-      font-weight: 430;
+      font-weight: 600;
       animation: enter-wipe .95s .2s var(--ease) both;
     }
 
@@ -275,10 +277,12 @@
     }
 
     h2 {
+      color: var(--text);
+      font-family: "Quicksand", sans-serif;
       font-size: clamp(2.2rem, 4vw, 3.6rem);
       line-height: .95;
       letter-spacing: -.08em;
-      font-weight: 430;
+      font-weight: 600;
     }
 
     .section-heading p {
@@ -308,8 +312,8 @@
 
     .filter:hover,
     .filter.active {
-      background: var(--amber);
-      border-color: var(--amber);
+      background: var(--accent);
+      border-color: var(--accent);
       color: var(--bg);
       transform: translateY(-2px);
     }
@@ -325,42 +329,22 @@
       padding: 12px;
       border: 1px solid var(--border);
       border-radius: 19px;
-      background: rgba(11, 20, 35, .84);
+      background: rgba(19, 45, 70, .88);
       opacity: 0;
       animation: enter-up .65s var(--ease) forwards;
       transition: .3s ease;
     }
 
-    .project:nth-child(1) {
-      animation-delay: .1s;
-    }
-
-    .project:nth-child(2) {
-      animation-delay: .17s;
-    }
-
-    .project:nth-child(3) {
-      animation-delay: .24s;
-    }
-
-    .project:nth-child(4) {
-      animation-delay: .31s;
-    }
-
-    .project:nth-child(5) {
-      animation-delay: .38s;
-    }
-
-    .project:nth-child(6) {
-      animation-delay: .45s;
-    }
-
-    .project:nth-child(7) {
-      animation-delay: .52s;
-    }
+    .project:nth-child(1) { animation-delay: .1s; }
+    .project:nth-child(2) { animation-delay: .17s; }
+    .project:nth-child(3) { animation-delay: .24s; }
+    .project:nth-child(4) { animation-delay: .31s; }
+    .project:nth-child(5) { animation-delay: .38s; }
+    .project:nth-child(6) { animation-delay: .45s; }
+    .project:nth-child(7) { animation-delay: .52s; }
 
     .project:hover {
-      border-color: rgba(101, 220, 230, .65);
+      border-color: rgba(1, 195, 142, .8);
       box-shadow: 0 18px 45px rgba(0, 0, 0, .32);
       transform: translateY(-7px);
     }
@@ -376,14 +360,14 @@
 
     .preview.live-preview {
       padding: 0;
-      background: #101a2a;
+      background: var(--bg);
     }
 
     .live-preview iframe {
       width: 100%;
       height: 100%;
       border: 0;
-      background: #101a2a;
+      background: var(--bg);
       transform: scale(.82);
       transform-origin: center;
       pointer-events: none;
@@ -395,37 +379,25 @@
       bottom: 10px;
       z-index: 2;
       padding: 5px 9px;
-      border: 1px solid rgba(255, 255, 255, .35);
+      border: 1px solid rgba(255, 255, 255, .45);
       border-radius: 999px;
-      background: rgba(2, 6, 15, .88);
-      color: var(--cyan);
+      background: rgba(26, 30, 41, .92);
+      color: var(--accent);
       font-size: .65rem;
       font-weight: 700;
       backdrop-filter: blur(8px);
     }
 
-    .preview.weather {
-      background: #294e58;
-    }
-
-    .preview.api {
-      background: #42304b;
-    }
-
-    .preview.database {
-      background: #294a48;
-    }
-
-    .preview.web {
-      background: #55402f;
-    }
-
-    .preview.games {
-      background: #542f46;
-    }
-
+    .preview.weather,
+    .preview.database,
     .preview.rafting {
-      background: #245967;
+      background: var(--surface);
+    }
+
+    .preview.api,
+    .preview.web,
+    .preview.games {
+      background: var(--bg);
     }
 
     .preview::after {
@@ -455,20 +427,22 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--rose);
+      background: var(--text);
     }
 
     .window i:nth-child(2) {
-      background: var(--amber);
+      background: var(--accent);
     }
 
     .window i:nth-child(3) {
-      background: var(--cyan);
+      background: var(--text);
     }
 
     .mock-title {
+      color: var(--text);
+      font-family: "Quicksand", sans-serif;
       font-size: 1rem;
-      font-weight: 750;
+      font-weight: 700;
       margin-bottom: 9px;
     }
 
@@ -489,7 +463,7 @@
     .mock-card {
       height: 31px;
       margin-top: 10px;
-      border-left: 3px solid var(--amber);
+      border-left: 3px solid var(--accent);
       border-radius: 7px;
       background: rgba(255, 255, 255, .1);
       animation: card-pulse 2s ease-in-out infinite;
@@ -504,14 +478,14 @@
     }
 
     .code {
-      color: var(--amber);
+      color: var(--accent);
       font-family: monospace;
       font-size: .74rem;
       line-height: 1.7;
     }
 
     .code span {
-      color: var(--rose);
+      color: var(--text);
     }
 
     .project-top {
@@ -522,13 +496,15 @@
     }
 
     .project h3 {
+      color: var(--text);
+      font-family: "Quicksand", sans-serif;
       font-size: 1.07rem;
       letter-spacing: -.04em;
-      font-weight: 650;
+      font-weight: 700;
     }
 
     .number {
-      color: var(--amber);
+      color: var(--accent);
       font-size: .7rem;
       font-weight: 700;
     }
@@ -556,9 +532,9 @@
     }
 
     .project-link {
-      color: var(--cyan);
+      color: var(--accent);
       font-size: .79rem;
-      font-weight: 650;
+      font-weight: 600;
     }
 
     .project-link:hover {
@@ -575,13 +551,15 @@
       padding: 24px;
       border: 1px solid var(--border);
       border-radius: 18px;
-      background: rgba(11, 20, 35, .82);
+      background: rgba(19, 45, 70, .88);
     }
 
     .info h3 {
       margin-bottom: 8px;
-      color: var(--amber);
+      color: var(--accent);
+      font-family: "Quicksand", sans-serif;
       font-size: 1rem;
+      font-weight: 700;
     }
 
     .info p {
@@ -590,7 +568,7 @@
     }
 
     .contact-box {
-      border-left: 1px solid var(--cyan);
+      border-left: 1px solid var(--accent);
     }
 
     footer {
@@ -790,15 +768,15 @@
 
 <body>
   <svg class="signal-field" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-    <path class="signal amber" d="M-8 0 C16 15 30 30 50 50"></path>
-    <path class="signal amber dim" d="M-8 8 C17 20 31 34 50 50"></path>
-    <path class="signal amber" d="M108 0 C84 15 70 30 50 50"></path>
-    <path class="signal amber dim" d="M108 8 C83 20 69 34 50 50"></path>
+    <path class="signal" d="M-8 0 C16 15 30 30 50 50"></path>
+    <path class="signal dim" d="M-8 8 C17 20 31 34 50 50"></path>
+    <path class="signal" d="M108 0 C84 15 70 30 50 50"></path>
+    <path class="signal dim" d="M108 8 C83 20 69 34 50 50"></path>
 
-    <path class="signal cyan" d="M-8 108 C18 82 33 67 50 50"></path>
-    <path class="signal cyan dim" d="M-1 108 C22 84 36 68 50 50"></path>
-    <path class="signal cyan" d="M108 108 C82 82 67 67 50 50"></path>
-    <path class="signal cyan dim" d="M101 108 C78 84 64 68 50 50"></path>
+    <path class="signal" d="M-8 108 C18 82 33 67 50 50"></path>
+    <path class="signal dim" d="M-1 108 C22 84 36 68 50 50"></path>
+    <path class="signal" d="M108 108 C82 82 67 67 50 50"></path>
+    <path class="signal dim" d="M101 108 C78 84 64 68 50 50"></path>
 
     <circle class="signal-node" cx="50" cy="50" r="1.2"></circle>
   </svg>
@@ -825,7 +803,11 @@
           </ul>
         </nav>
 
-        <a class="github-link" href="https://github.com/MarkCalla159" target="_blank">
+        <a
+          class="github-link"
+          href="https://github.com/MarkCalla159"
+          target="_blank"
+          rel="noopener noreferrer">
           GitHub ↗
         </a>
 
