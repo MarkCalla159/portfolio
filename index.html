@@ -16,8 +16,8 @@
       --amber: #f0ad62;
       --cyan: #65dce6;
       --rose: #d46a78;
-      --border: rgba(196,214,232,.18);
-      --ease: cubic-bezier(.16,1,.3,1);
+      --border: rgba(196, 214, 232, .18);
+      --ease: cubic-bezier(.16, 1, .3, 1);
     }
 
     * {
@@ -34,7 +34,7 @@
       overflow-x: hidden;
       background: var(--bg);
       color: var(--text);
-      font-family: "Sora", system-ui, sans-serif;
+      font-family: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
@@ -85,11 +85,25 @@
       stroke-width: .12;
     }
 
-    .signal:nth-child(2) { animation-delay: -2s; }
-    .signal:nth-child(3) { animation-delay: -4s; }
-    .signal:nth-child(4) { animation-delay: -6s; }
-    .signal:nth-child(5) { animation-delay: -3s; }
-    .signal:nth-child(6) { animation-delay: -5s; }
+    .signal:nth-child(2) {
+      animation-delay: -2s;
+    }
+
+    .signal:nth-child(3) {
+      animation-delay: -4s;
+    }
+
+    .signal:nth-child(4) {
+      animation-delay: -6s;
+    }
+
+    .signal:nth-child(5) {
+      animation-delay: -3s;
+    }
+
+    .signal:nth-child(6) {
+      animation-delay: -5s;
+    }
 
     .signal-node {
       fill: var(--text);
@@ -131,6 +145,12 @@
       height: 17px;
     }
 
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
     nav ul {
       display: flex;
       gap: 28px;
@@ -148,12 +168,6 @@
       transform: translateY(-2px);
     }
 
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
     .github-link {
       color: var(--soft);
       font-size: .78rem;
@@ -166,9 +180,9 @@
       gap: 10px;
       min-height: 42px;
       padding: 10px 18px;
-      border: 1px solid rgba(196,214,232,.55);
+      border: 1px solid rgba(196, 214, 232, .55);
       border-radius: 999px;
-      background: rgba(255,255,255,.08);
+      background: rgba(255, 255, 255, .08);
       color: var(--text);
       font-size: .78rem;
       font-weight: 600;
@@ -189,8 +203,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
       padding: 38px 0 45px;
+      text-align: center;
     }
 
     .eyebrow {
@@ -311,22 +325,43 @@
       padding: 12px;
       border: 1px solid var(--border);
       border-radius: 19px;
-      background: rgba(11,20,35,.84);
+      background: rgba(11, 20, 35, .84);
       opacity: 0;
       animation: enter-up .65s var(--ease) forwards;
       transition: .3s ease;
     }
 
-    .project:nth-child(1) { animation-delay: .1s; }
-    .project:nth-child(2) { animation-delay: .17s; }
-    .project:nth-child(3) { animation-delay: .24s; }
-    .project:nth-child(4) { animation-delay: .31s; }
-    .project:nth-child(5) { animation-delay: .38s; }
-    .project:nth-child(6) { animation-delay: .45s; }
+    .project:nth-child(1) {
+      animation-delay: .1s;
+    }
+
+    .project:nth-child(2) {
+      animation-delay: .17s;
+    }
+
+    .project:nth-child(3) {
+      animation-delay: .24s;
+    }
+
+    .project:nth-child(4) {
+      animation-delay: .31s;
+    }
+
+    .project:nth-child(5) {
+      animation-delay: .38s;
+    }
+
+    .project:nth-child(6) {
+      animation-delay: .45s;
+    }
+
+    .project:nth-child(7) {
+      animation-delay: .52s;
+    }
 
     .project:hover {
-      border-color: rgba(101,220,230,.65);
-      box-shadow: 0 18px 45px rgba(0,0,0,.32);
+      border-color: rgba(101, 220, 230, .65);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, .32);
       transform: translateY(-7px);
     }
 
@@ -339,12 +374,59 @@
       border-radius: 14px;
     }
 
-    .preview.weather { background: #294e58; }
-    .preview.api { background: #42304b; }
-    .preview.database { background: #294a48; }
-    .preview.web { background: #55402f; }
-    .preview.games { background: #542f46; }
-    .preview.rafting { background: #245967; }
+    .preview.live-preview {
+      padding: 0;
+      background: #101a2a;
+    }
+
+    .live-preview iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #101a2a;
+      transform: scale(.82);
+      transform-origin: center;
+      pointer-events: none;
+    }
+
+    .live-badge {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      z-index: 2;
+      padding: 5px 9px;
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 999px;
+      background: rgba(2, 6, 15, .88);
+      color: var(--cyan);
+      font-size: .65rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+
+    .preview.weather {
+      background: #294e58;
+    }
+
+    .preview.api {
+      background: #42304b;
+    }
+
+    .preview.database {
+      background: #294a48;
+    }
+
+    .preview.web {
+      background: #55402f;
+    }
+
+    .preview.games {
+      background: #542f46;
+    }
+
+    .preview.rafting {
+      background: #245967;
+    }
 
     .preview::after {
       content: "";
@@ -353,9 +435,14 @@
       bottom: -45px;
       width: 130px;
       height: 130px;
-      border: 1px solid rgba(255,255,255,.16);
+      border: 1px solid rgba(255, 255, 255, .16);
       border-radius: 50%;
       animation: preview-orbit 9s linear infinite;
+      pointer-events: none;
+    }
+
+    .live-preview::after {
+      display: none;
     }
 
     .window {
@@ -390,7 +477,7 @@
       height: 6px;
       margin: 7px 0;
       border-radius: 999px;
-      background: rgba(255,255,255,.22);
+      background: rgba(255, 255, 255, .22);
       animation: line-pulse 2.5s ease-in-out infinite;
     }
 
@@ -404,7 +491,7 @@
       margin-top: 10px;
       border-left: 3px solid var(--amber);
       border-radius: 7px;
-      background: rgba(255,255,255,.1);
+      background: rgba(255, 255, 255, .1);
       animation: card-pulse 2s ease-in-out infinite;
     }
 
@@ -488,7 +575,7 @@
       padding: 24px;
       border: 1px solid var(--border);
       border-radius: 18px;
-      background: rgba(11,20,35,.82);
+      background: rgba(11, 20, 35, .82);
     }
 
     .info h3 {
@@ -517,13 +604,25 @@
     }
 
     @keyframes signal-flow {
-      from { stroke-dashoffset: 0; }
-      to { stroke-dashoffset: -20; }
+      from {
+        stroke-dashoffset: 0;
+      }
+
+      to {
+        stroke-dashoffset: -20;
+      }
     }
 
     @keyframes node-pulse {
-      0%, 100% { r: 1.1; opacity: .75; }
-      50% { r: 1.8; opacity: 1; }
+      0%, 100% {
+        r: 1.1;
+        opacity: .75;
+      }
+
+      50% {
+        r: 1.8;
+        opacity: 1;
+      }
     }
 
     @keyframes enter-up {
@@ -531,6 +630,7 @@
         opacity: 0;
         transform: translateY(12px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -543,6 +643,7 @@
         clip-path: inset(0 0 100% 0);
         transform: translateY(10px);
       }
+
       to {
         opacity: 1;
         clip-path: inset(0 0 0 0);
@@ -555,6 +656,7 @@
         opacity: 0;
         transform: scale(.96);
       }
+
       to {
         opacity: 1;
         transform: scale(1);
@@ -562,30 +664,49 @@
     }
 
     @keyframes line-pulse {
-      0%, 100% { opacity: .3; }
-      50% { opacity: .9; }
+      0%, 100% {
+        opacity: .3;
+      }
+
+      50% {
+        opacity: .9;
+      }
     }
 
     @keyframes card-pulse {
-      0%, 100% { opacity: .35; }
-      50% { opacity: .8; }
+      0%, 100% {
+        opacity: .35;
+      }
+
+      50% {
+        opacity: .8;
+      }
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(-4deg); }
-      50% { transform: translateY(-8px) rotate(4deg); }
+      0%, 100% {
+        transform: translateY(0) rotate(-4deg);
+      }
+
+      50% {
+        transform: translateY(-8px) rotate(4deg);
+      }
     }
 
     @keyframes preview-orbit {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
-    @media (max-width: 850px) {
+    @media (max-width: 1000px) {
       .nav-actions nav,
       .github-link {
         display: none;
       }
+    }
 
+    @media (max-width: 850px) {
       .hero {
         min-height: 420px;
       }
@@ -644,7 +765,7 @@
       }
 
       .preview {
-        height: 135px;
+        height: 150px;
       }
 
       footer {
@@ -754,6 +875,50 @@
       </div>
 
       <div class="projects">
+
+        <article class="project" data-category="web backend database">
+          <div class="preview live-preview">
+            <iframe
+              src="https://nextplayg-task-board.vercel.app/"
+              title="NextPlayG Task Board preview"
+              loading="lazy">
+            </iframe>
+
+            <a
+              class="live-badge"
+              href="https://nextplayg-task-board.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer">
+              Open live app ↗
+            </a>
+          </div>
+
+          <div class="project-top">
+            <h3>NextPlayG Task Board</h3>
+            <span class="number">01</span>
+          </div>
+
+          <p>
+            Responsive task-management application with drag and drop,
+            filters, labels, priorities, due dates, and Supabase security.
+          </p>
+
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Vite</span>
+            <span class="tag">Supabase</span>
+          </div>
+
+          <a
+            class="project-link"
+            href="https://nextplayg-task-board.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer">
+            View live application →
+          </a>
+        </article>
+
         <article class="project" data-category="web backend">
           <div class="preview api">
             <div class="window"><i></i><i></i><i></i></div>
@@ -768,7 +933,7 @@
 
           <div class="project-top">
             <h3>CSE341 Personal Project</h3>
-            <span class="number">01</span>
+            <span class="number">02</span>
           </div>
 
           <p>
@@ -783,7 +948,11 @@
             <span class="tag">Swagger</span>
           </div>
 
-          <a class="project-link" href="https://github.com/MarkCalla159/CSE341-Mark-PersonalProject" target="_blank">
+          <a
+            class="project-link"
+            href="https://github.com/MarkCalla159/CSE341-Mark-PersonalProject"
+            target="_blank"
+            rel="noopener noreferrer">
             View repository →
           </a>
         </article>
@@ -800,7 +969,7 @@
 
           <div class="project-top">
             <h3>CSE340 Backend App</h3>
-            <span class="number">02</span>
+            <span class="number">03</span>
           </div>
 
           <p>
@@ -814,7 +983,11 @@
             <span class="tag">PostgreSQL</span>
           </div>
 
-          <a class="project-link" href="https://github.com/MarkCalla159/CSE340" target="_blank">
+          <a
+            class="project-link"
+            href="https://github.com/MarkCalla159/CSE340"
+            target="_blank"
+            rel="noopener noreferrer">
             View repository →
           </a>
         </article>
@@ -831,7 +1004,7 @@
 
           <div class="project-top">
             <h3>Blazor Weather App</h3>
-            <span class="number">03</span>
+            <span class="number">04</span>
           </div>
 
           <p>
@@ -845,7 +1018,11 @@
             <span class="tag">.NET 10</span>
           </div>
 
-          <a class="project-link" href="https://github.com/MarkCalla159/CSE325/tree/main/BlazingPizzaSite" target="_blank">
+          <a
+            class="project-link"
+            href="https://github.com/MarkCalla159/CSE325/tree/main/BlazingPizzaSite"
+            target="_blank"
+            rel="noopener noreferrer">
             View application →
           </a>
         </article>
@@ -862,7 +1039,7 @@
 
           <div class="project-top">
             <h3>WDD330 Projects</h3>
-            <span class="number">04</span>
+            <span class="number">05</span>
           </div>
 
           <p>
@@ -876,7 +1053,11 @@
             <span class="tag">CSS</span>
           </div>
 
-          <a class="project-link" href="https://github.com/MarkCalla159/WDD330" target="_blank">
+          <a
+            class="project-link"
+            href="https://github.com/MarkCalla159/WDD330"
+            target="_blank"
+            rel="noopener noreferrer">
             View repository →
           </a>
         </article>
@@ -895,7 +1076,7 @@
 
           <div class="project-top">
             <h3>CSE310 Projects</h3>
-            <span class="number">05</span>
+            <span class="number">06</span>
           </div>
 
           <p>
@@ -910,7 +1091,11 @@
             <span class="tag">Kotlin</span>
           </div>
 
-          <a class="project-link" href="https://github.com/MarkCalla159/CSE310" target="_blank">
+          <a
+            class="project-link"
+            href="https://github.com/MarkCalla159/CSE310"
+            target="_blank"
+            rel="noopener noreferrer">
             View repository →
           </a>
         </article>
@@ -927,7 +1112,7 @@
 
           <div class="project-top">
             <h3>WDD130 Web Projects</h3>
-            <span class="number">06</span>
+            <span class="number">07</span>
           </div>
 
           <p>
@@ -941,10 +1126,15 @@
             <span class="tag">Responsive</span>
           </div>
 
-          <a class="project-link" href="https://github.com/MarkCalla159/wdd130" target="_blank">
+          <a
+            class="project-link"
+            href="https://github.com/MarkCalla159/wdd130"
+            target="_blank"
+            rel="noopener noreferrer">
             View repository →
           </a>
         </article>
+
       </div>
     </section>
 
@@ -979,9 +1169,11 @@
       <div class="info contact-box">
         <div class="eyebrow">Have an idea?</div>
         <h2>Let’s build something useful.</h2>
+
         <p style="margin: 12px 0 18px;">
           Interested in technology, sports, or creating better digital experiences?
         </p>
+
         <a class="button" href="mailto:markcalla@byui.edu">
           Send me an email ↗
         </a>
