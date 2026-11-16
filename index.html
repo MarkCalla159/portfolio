@@ -7,16 +7,17 @@
 
   <style>
     :root {
-      --bg: #171313;
-      --surface: #231a19;
-      --surface-2: #332321;
-      --text: #fff7ed;
-      --muted: #c5b5aa;
-      --accent: #f4a261;
-      --coral: #e76f51;
-      --teal: #2a9d8f;
+      --bg: #02060f;
+      --surface: #0b1423;
+      --surface-2: #111d2d;
+      --text: #ffffff;
+      --muted: #a2a9b8;
+      --soft: #e2ebf5;
+      --amber: #f0ad62;
+      --cyan: #65dce6;
       --rose: #d46a78;
-      --border: rgba(255,247,237,.14);
+      --border: rgba(196,214,232,.18);
+      --ease: cubic-bezier(.16,1,.3,1);
     }
 
     * {
@@ -30,12 +31,12 @@
     }
 
     body {
-      min-height: 100vh;
       overflow-x: hidden;
       background: var(--bg);
       color: var(--text);
-      font-family: Inter, system-ui, sans-serif;
+      font-family: "Sora", system-ui, sans-serif;
       line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
     a {
@@ -43,27 +44,64 @@
       text-decoration: none;
     }
 
-    .ambient {
+    button {
+      font: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+    }
+
+    .signal-field {
       position: fixed;
-      z-index: -1;
-      width: 280px;
-      height: 280px;
-      border: 1px solid rgba(244,162,97,.1);
-      border-radius: 50%;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
       pointer-events: none;
-      animation: drift 14s ease-in-out infinite alternate;
     }
 
-    .ambient-one {
-      top: 10%;
-      right: -120px;
+    .signal {
+      fill: none;
+      stroke-linecap: round;
+      stroke-width: .22;
+      stroke-dasharray: 1.2 3;
+      animation: signal-flow 9s linear infinite;
     }
 
-    .ambient-two {
-      bottom: 5%;
-      left: -170px;
-      border-color: rgba(42,157,143,.12);
-      animation-delay: -5s;
+    .signal.amber {
+      stroke: var(--amber);
+    }
+
+    .signal.cyan {
+      stroke: var(--cyan);
+      animation-duration: 11s;
+    }
+
+    .signal.dim {
+      opacity: .22;
+      stroke-width: .12;
+    }
+
+    .signal:nth-child(2) { animation-delay: -2s; }
+    .signal:nth-child(3) { animation-delay: -4s; }
+    .signal:nth-child(4) { animation-delay: -6s; }
+    .signal:nth-child(5) { animation-delay: -3s; }
+    .signal:nth-child(6) { animation-delay: -5s; }
+
+    .signal-node {
+      fill: var(--text);
+      animation: node-pulse 3s ease-in-out infinite;
+    }
+
+    .veil {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: rgba(2, 6, 15, .52);
+      pointer-events: none;
     }
 
     .container {
@@ -72,295 +110,258 @@
     }
 
     nav {
-      height: 76px;
+      height: 78px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      animation: appear .7s ease both;
     }
 
     .logo {
-      color: var(--accent);
-      font-size: 1.35rem;
-      font-weight: 950;
-      letter-spacing: -.1em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 650;
+      letter-spacing: .12em;
+    }
+
+    .logo-mark {
+      width: 23px;
+      height: 17px;
     }
 
     nav ul {
       display: flex;
-      gap: 25px;
+      gap: 28px;
       list-style: none;
-      color: var(--muted);
-      font-size: .86rem;
+      color: var(--soft);
+      font-size: .78rem;
+    }
+
+    nav a {
+      transition: color .25s ease, transform .25s ease;
     }
 
     nav a:hover {
-      color: var(--accent);
+      color: var(--cyan);
+      transform: translateY(-2px);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .github-link {
+      color: var(--soft);
+      font-size: .78rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 10px 18px;
+      border: 1px solid rgba(196,214,232,.55);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      font-size: .78rem;
+      font-weight: 600;
+      transition: .25s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .button:hover {
+      color: var(--bg);
+      background: var(--cyan);
+      border-color: var(--cyan);
+      transform: translateY(-3px);
     }
 
     .hero {
-      min-height: 465px;
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 35px;
+      justify-content: center;
+      text-align: center;
+      padding: 38px 0 45px;
     }
 
     .eyebrow {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      color: var(--accent);
-      font-size: .72rem;
-      font-weight: 900;
+      margin-bottom: 17px;
+      color: var(--amber);
+      font-size: .7rem;
+      font-weight: 700;
       letter-spacing: .15em;
       text-transform: uppercase;
-      margin-bottom: 16px;
     }
 
     .eyebrow::before {
       content: "";
-      width: 25px;
-      height: 2px;
-      background: var(--accent);
-      animation: expand .8s ease both;
+      width: 24px;
+      height: 1px;
+      background: var(--amber);
     }
 
-    h1 {
-      max-width: 680px;
-      font-size: clamp(3.3rem, 7vw, 6.3rem);
-      line-height: .88;
-      letter-spacing: -.1em;
-      animation: slide-up .8s .15s ease both;
+    .hero h1 {
+      max-width: 760px;
+      font-size: clamp(3rem, 6vw, 5.6rem);
+      line-height: .94;
+      letter-spacing: -.09em;
+      font-weight: 430;
+      animation: enter-wipe .95s .2s var(--ease) both;
     }
 
-    h1 span {
-      color: var(--accent);
-      display: inline-block;
-      animation: accent-pulse 3s ease-in-out infinite;
+    .hero h1 span {
+      display: block;
     }
 
     .hero-copy {
-      max-width: 540px;
+      margin-top: 23px;
       color: var(--muted);
-      font-size: 1rem;
-      margin: 22px 0;
-      animation: slide-up .8s .3s ease both;
+      font-size: clamp(.9rem, 1.5vw, 1.12rem);
+      line-height: 1.45;
+      animation: enter-up .7s .55s var(--ease) both;
     }
 
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      animation: slide-up .8s .45s ease both;
+    .hero-copy span {
+      display: block;
     }
 
-    .button {
-      display: inline-block;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 10px 17px;
-      font-size: .84rem;
-      font-weight: 800;
-      transition: .25s;
-    }
-
-    .button:hover {
-      transform: translateY(-3px) scale(1.03);
-      border-color: var(--accent);
-    }
-
-    .button.primary {
-      color: #21130c;
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-
-    .hero-art {
-      min-height: 290px;
-      display: grid;
-      place-items: center;
-      position: relative;
-      animation: appear 1s .3s ease both;
-    }
-
-    .orbit {
-      width: 245px;
-      height: 245px;
-      border: 1px solid rgba(244,162,97,.42);
-      border-radius: 50%;
-      position: relative;
-      animation: rotate 22s linear infinite;
-      box-shadow: 0 0 55px rgba(231,111,81,.12);
-    }
-
-    .orbit::before,
-    .orbit::after {
-      content: "";
-      position: absolute;
-      inset: 26px;
-      border: 1px solid rgba(231,111,81,.55);
-      border-radius: 50%;
-    }
-
-    .orbit::after {
-      inset: 61px;
-      border-color: rgba(42,157,143,.65);
-    }
-
-    .core {
-      position: absolute;
-      width: 105px;
-      height: 105px;
-      display: grid;
-      place-items: center;
-      border-radius: 32%;
-      background: var(--accent);
-      color: #21130c;
-      font-size: 3rem;
-      font-weight: 950;
-      letter-spacing: -.15em;
-      box-shadow: 0 0 40px rgba(244,162,97,.25);
-      animation: core-float 3.5s ease-in-out infinite;
-    }
-
-    .dot {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--rose);
-      box-shadow: 0 0 17px var(--rose);
-      animation: dot-pulse 2s ease-in-out infinite;
-    }
-
-    .dot.one {
-      top: 15px;
-      left: 48%;
-    }
-
-    .dot.two {
-      right: 5px;
-      bottom: 25%;
-      background: var(--teal);
-      box-shadow: 0 0 17px var(--teal);
-      animation-delay: -.7s;
-    }
-
-    .dot.three {
-      left: 23px;
-      bottom: 22%;
-      background: var(--accent);
-      box-shadow: 0 0 17px var(--accent);
-      animation-delay: -1.3s;
+    .hero-button {
+      margin-top: 22px;
+      animation: enter-scale .7s .78s var(--ease) both;
     }
 
     section {
-      padding: 45px 0;
+      padding: 58px 0;
     }
 
     .section-heading {
       display: flex;
-      justify-content: space-between;
       align-items: end;
+      justify-content: space-between;
       gap: 25px;
-      margin-bottom: 20px;
+      margin-bottom: 23px;
+    }
+
+    .section-heading .eyebrow {
+      justify-content: flex-start;
+      margin-bottom: 12px;
     }
 
     h2 {
-      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
       line-height: .95;
       letter-spacing: -.08em;
+      font-weight: 430;
     }
 
     .section-heading p {
-      max-width: 390px;
+      max-width: 410px;
       color: var(--muted);
-      font-size: .9rem;
+      font-size: .88rem;
     }
 
     .filters {
       display: flex;
       flex-wrap: wrap;
-      gap: 7px;
-      margin-bottom: 17px;
+      gap: 8px;
+      margin-bottom: 18px;
     }
 
     .filter {
       cursor: pointer;
+      padding: 7px 13px;
       border: 1px solid var(--border);
       border-radius: 999px;
-      padding: 7px 12px;
-      color: var(--muted);
       background: transparent;
-      font-size: .78rem;
-      font-weight: 700;
-      transition: .25s;
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 600;
+      transition: .25s ease;
     }
 
     .filter:hover,
     .filter.active {
-      color: #21130c;
-      background: var(--accent);
-      border-color: var(--accent);
+      background: var(--amber);
+      border-color: var(--amber);
+      color: var(--bg);
       transform: translateY(-2px);
     }
 
     .projects {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 15px;
     }
 
     .project {
       overflow: hidden;
-      padding: 11px;
+      padding: 12px;
       border: 1px solid var(--border);
       border-radius: 19px;
-      background: rgba(35,26,25,.86);
+      background: rgba(11,20,35,.84);
       opacity: 0;
-      animation: card-in .7s ease forwards;
-      transition: .3s;
+      animation: enter-up .65s var(--ease) forwards;
+      transition: .3s ease;
     }
 
     .project:nth-child(1) { animation-delay: .1s; }
-    .project:nth-child(2) { animation-delay: .2s; }
-    .project:nth-child(3) { animation-delay: .3s; }
-    .project:nth-child(4) { animation-delay: .4s; }
-    .project:nth-child(5) { animation-delay: .5s; }
-    .project:nth-child(6) { animation-delay: .6s; }
+    .project:nth-child(2) { animation-delay: .17s; }
+    .project:nth-child(3) { animation-delay: .24s; }
+    .project:nth-child(4) { animation-delay: .31s; }
+    .project:nth-child(5) { animation-delay: .38s; }
+    .project:nth-child(6) { animation-delay: .45s; }
 
     .project:hover {
-      transform: translateY(-7px) rotate(.4deg);
-      border-color: rgba(244,162,97,.7);
-      box-shadow: 0 15px 45px rgba(0,0,0,.28);
+      border-color: rgba(101,220,230,.65);
+      box-shadow: 0 18px 45px rgba(0,0,0,.32);
+      transform: translateY(-7px);
     }
 
     .preview {
-      height: 145px;
-      padding: 13px;
-      border-radius: 13px;
-      margin-bottom: 14px;
-      overflow: hidden;
       position: relative;
-      transition: .3s;
+      height: 150px;
+      overflow: hidden;
+      padding: 14px;
+      margin-bottom: 15px;
+      border-radius: 14px;
     }
 
-    .project:hover .preview {
-      transform: scale(1.025);
-    }
+    .preview.weather { background: #294e58; }
+    .preview.api { background: #42304b; }
+    .preview.database { background: #294a48; }
+    .preview.web { background: #55402f; }
+    .preview.games { background: #542f46; }
+    .preview.rafting { background: #245967; }
 
-    .preview.weather { background: #496b68; }
-    .preview.api { background: #623c45; }
-    .preview.database { background: #496454; }
-    .preview.web { background: #765334; }
-    .preview.games { background: #693d50; }
-    .preview.rafting { background: #3e7072; }
+    .preview::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      bottom: -45px;
+      width: 130px;
+      height: 130px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 50%;
+      animation: preview-orbit 9s linear infinite;
+    }
 
     .window {
       display: flex;
-      gap: 4px;
-      margin-bottom: 14px;
+      gap: 5px;
+      margin-bottom: 16px;
     }
 
     .window i {
@@ -370,22 +371,27 @@
       background: var(--rose);
     }
 
-    .window i:nth-child(2) { background: var(--accent); }
-    .window i:nth-child(3) { background: var(--teal); }
+    .window i:nth-child(2) {
+      background: var(--amber);
+    }
+
+    .window i:nth-child(3) {
+      background: var(--cyan);
+    }
 
     .mock-title {
       font-size: 1rem;
-      font-weight: 900;
-      margin-bottom: 8px;
+      font-weight: 750;
+      margin-bottom: 9px;
     }
 
     .mock-line {
       width: 72%;
       height: 6px;
-      border-radius: 99px;
-      background: rgba(255,247,237,.22);
       margin: 7px 0;
-      animation: loading-line 2.5s ease-in-out infinite;
+      border-radius: 999px;
+      background: rgba(255,255,255,.22);
+      animation: line-pulse 2.5s ease-in-out infinite;
     }
 
     .mock-line.short {
@@ -394,26 +400,26 @@
     }
 
     .mock-card {
-      height: 30px;
-      margin-top: 9px;
-      border-left: 3px solid var(--accent);
+      height: 31px;
+      margin-top: 10px;
+      border-left: 3px solid var(--amber);
       border-radius: 7px;
-      background: rgba(255,247,237,.12);
-      animation: card-glow 2s ease-in-out infinite;
+      background: rgba(255,255,255,.1);
+      animation: card-pulse 2s ease-in-out infinite;
     }
 
     .weather-icon {
       position: absolute;
       top: 43px;
-      right: 20px;
+      right: 22px;
       font-size: 2.8rem;
-      animation: sun-float 2.5s ease-in-out infinite;
+      animation: float 2.7s ease-in-out infinite;
     }
 
     .code {
-      color: var(--accent);
+      color: var(--amber);
       font-family: monospace;
-      font-size: .72rem;
+      font-size: .74rem;
       line-height: 1.7;
     }
 
@@ -423,110 +429,107 @@
 
     .project-top {
       display: flex;
-      justify-content: space-between;
       align-items: start;
-      gap: 10px;
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .project h3 {
-      font-size: 1.05rem;
+      font-size: 1.07rem;
       letter-spacing: -.04em;
+      font-weight: 650;
     }
 
     .number {
-      color: var(--accent);
+      color: var(--amber);
       font-size: .7rem;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     .project p {
-      min-height: 66px;
-      margin-top: 7px;
+      min-height: 70px;
+      margin-top: 8px;
       color: var(--muted);
-      font-size: .8rem;
+      font-size: .81rem;
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
       gap: 5px;
-      margin: 11px 0;
+      margin: 12px 0;
     }
 
     .tag {
+      padding: 4px 7px;
       border: 1px solid var(--border);
       border-radius: 5px;
-      padding: 3px 6px;
       color: var(--muted);
       font-size: .65rem;
     }
 
-    .project a {
-      color: var(--accent);
-      font-size: .78rem;
-      font-weight: 900;
+    .project-link {
+      color: var(--cyan);
+      font-size: .79rem;
+      font-weight: 650;
     }
 
-    .project a:hover {
+    .project-link:hover {
       text-decoration: underline;
     }
 
     .about {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 15px;
     }
 
     .info {
-      padding: 22px;
+      padding: 24px;
       border: 1px solid var(--border);
       border-radius: 18px;
-      background: rgba(35,26,25,.7);
-      animation: appear 1s ease both;
+      background: rgba(11,20,35,.82);
     }
 
     .info h3 {
-      color: var(--accent);
+      margin-bottom: 8px;
+      color: var(--amber);
       font-size: 1rem;
-      margin-bottom: 7px;
     }
 
     .info p {
       color: var(--muted);
-      font-size: .88rem;
+      font-size: .87rem;
+    }
+
+    .contact-box {
+      border-left: 1px solid var(--cyan);
     }
 
     footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 28px 0;
       border-top: 1px solid var(--border);
-      padding: 25px 0;
       color: var(--muted);
       font-size: .78rem;
     }
 
-    @keyframes appear {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+    @keyframes signal-flow {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -20; }
     }
 
-    @keyframes slide-up {
-      from {
-        opacity: 0;
-        transform: translateY(22px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes node-pulse {
+      0%, 100% { r: 1.1; opacity: .75; }
+      50% { r: 1.8; opacity: 1; }
     }
 
-    @keyframes card-in {
+    @keyframes enter-up {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(12px);
       }
       to {
         opacity: 1;
@@ -534,95 +537,57 @@
       }
     }
 
-    @keyframes rotate {
+    @keyframes enter-wipe {
+      from {
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+        transform: translateY(10px);
+      }
       to {
-        transform: rotate(342deg);
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0);
       }
     }
 
-    @keyframes core-float {
-      0%, 100% {
-        transform: translateY(0) rotate(0);
+    @keyframes enter-scale {
+      from {
+        opacity: 0;
+        transform: scale(.96);
       }
-      50% {
-        transform: translateY(-10px) rotate(4deg);
-      }
-    }
-
-    @keyframes dot-pulse {
-      0%, 100% {
+      to {
+        opacity: 1;
         transform: scale(1);
-        opacity: .7;
-      }
-      50% {
-        transform: scale(1.5);
-        opacity: 1;
       }
     }
 
-    @keyframes accent-pulse {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: .68;
-      }
+    @keyframes line-pulse {
+      0%, 100% { opacity: .3; }
+      50% { opacity: .9; }
     }
 
-    @keyframes drift {
-      from {
-        transform: translate(0, 0) rotate(0);
-      }
-      to {
-        transform: translate(35px, -25px) rotate(12deg);
-      }
+    @keyframes card-pulse {
+      0%, 100% { opacity: .35; }
+      50% { opacity: .8; }
     }
 
-    @keyframes expand {
-      from {
-        width: 0;
-      }
-      to {
-        width: 25px;
-      }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-8px) rotate(4deg); }
     }
 
-    @keyframes loading-line {
-      0%, 100% {
-        opacity: .35;
-      }
-      50% {
-        opacity: .9;
-      }
+    @keyframes preview-orbit {
+      to { transform: rotate(360deg); }
     }
 
-    @keyframes card-glow {
-      0%, 100% {
-        opacity: .35;
+    @media (max-width: 850px) {
+      .nav-actions nav,
+      .github-link {
+        display: none;
       }
-      50% {
-        opacity: .8;
-      }
-    }
 
-    @keyframes sun-float {
-      0%, 100% {
-        transform: translateY(0) rotate(-5deg);
-      }
-      50% {
-        transform: translateY(-8px) rotate(5deg);
-      }
-    }
-
-    @media (max-width: 900px) {
       .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        padding: 45px 0 20px;
-      }
-
-      .hero-art {
-        min-height: 250px;
+        min-height: 420px;
       }
 
       .projects {
@@ -631,13 +596,38 @@
     }
 
     @media (max-width: 620px) {
-      nav ul {
-        display: none;
+      .container {
+        width: min(100% - 26px, 1160px);
       }
 
-      .projects,
-      .about {
-        grid-template-columns: 1fr;
+      nav {
+        height: 68px;
+      }
+
+      .logo {
+        font-size: .83rem;
+      }
+
+      .hero {
+        min-height: 430px;
+        padding: 28px 0 35px;
+      }
+
+      .hero h1 {
+        font-size: 2.7rem;
+        line-height: 1;
+      }
+
+      .hero-copy {
+        font-size: .85rem;
+      }
+
+      .hero-copy span {
+        display: inline;
+      }
+
+      section {
+        padding: 42px 0;
       }
 
       .section-heading {
@@ -645,72 +635,101 @@
       }
 
       .section-heading p {
-        margin-top: 12px;
+        margin-top: 13px;
       }
 
-      h1 {
-        font-size: 3.5rem;
+      .projects,
+      .about {
+        grid-template-columns: 1fr;
       }
 
-      section {
-        padding: 35px 0;
+      .preview {
+        height: 135px;
+      }
+
+      footer {
+        display: block;
+        text-align: center;
+        line-height: 1.8;
+      }
+
+      footer span {
+        display: block;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
+      * {
+        animation: none !important;
+        transition: none !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
+  <svg class="signal-field" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path class="signal amber" d="M-8 0 C16 15 30 30 50 50"></path>
+    <path class="signal amber dim" d="M-8 8 C17 20 31 34 50 50"></path>
+    <path class="signal amber" d="M108 0 C84 15 70 30 50 50"></path>
+    <path class="signal amber dim" d="M108 8 C83 20 69 34 50 50"></path>
+
+    <path class="signal cyan" d="M-8 108 C18 82 33 67 50 50"></path>
+    <path class="signal cyan dim" d="M-1 108 C22 84 36 68 50 50"></path>
+    <path class="signal cyan" d="M108 108 C82 82 67 67 50 50"></path>
+    <path class="signal cyan dim" d="M101 108 C78 84 64 68 50 50"></path>
+
+    <circle class="signal-node" cx="50" cy="50" r="1.2"></circle>
+  </svg>
+
+  <div class="veil"></div>
 
   <header class="container">
     <nav>
-      <a class="logo" href="#">MCV.</a>
+      <a class="logo" href="#top">
+        <svg class="logo-mark" viewBox="0 0 23 17" aria-hidden="true">
+          <path d="M1 13.5 6.5 3h2.2L3.2 13.5H1Z" fill="white"/>
+          <path d="M7.2 13.5 12.7 3h2.2L9.4 13.5H7.2Z" fill="white"/>
+          <path d="M13.4 13.5 18.9 3h2.2l-5.5 10.5h-2.2Z" fill="white"/>
+        </svg>
+        MARK CALLA
+      </a>
 
-      <ul>
-        <li><a href="#work">Projects</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <div class="nav-actions">
+        <nav aria-label="Primary navigation">
+          <ul>
+            <li><a href="#work">Projects</a></li>
+            <li><a href="#about">Capabilities</a></li>
+            <li><a href="#contact">About</a></li>
+          </ul>
+        </nav>
+
+        <a class="github-link" href="https://github.com/MarkCalla159" target="_blank">
+          GitHub ↗
+        </a>
+
+        <a class="button" href="#work">View my work</a>
+      </div>
     </nav>
   </header>
 
-  <main>
+  <main id="top">
     <section class="container hero">
-      <div>
-        <div class="eyebrow">Developer portfolio / 2026</div>
+      <div class="eyebrow">Developer portfolio / 2026</div>
 
-        <h1>Ideas into <span>applications.</span></h1>
+      <h1>
+        <span>Ideas into applications.</span>
+        <span>Systems that stay human.</span>
+      </h1>
 
-        <p class="hero-copy">
-          I’m Mark Calla, a software developer focused on building useful web
-          applications, backend systems, APIs, and interactive experiences.
-        </p>
+      <p class="hero-copy">
+        <span>Frontend, backend and interactive applications.</span>
+        <span>Built with curiosity, clarity and constant iteration.</span>
+      </p>
 
-        <div class="actions">
-          <a class="button primary" href="#work">Explore my work ↓</a>
-          <a class="button" href="mailto:markcalla@byui.edu">Let’s talk ↗</a>
-        </div>
-      </div>
-
-      <div class="hero-art">
-        <div class="orbit">
-          <div class="dot one"></div>
-          <div class="dot two"></div>
-          <div class="dot three"></div>
-        </div>
-        <div class="core">MC</div>
-      </div>
+      <a class="button hero-button" href="#work">
+        Explore my work <span>→</span>
+      </a>
     </section>
 
     <section id="work" class="container">
@@ -735,7 +754,6 @@
       </div>
 
       <div class="projects">
-
         <article class="project" data-category="web backend">
           <div class="preview api">
             <div class="window"><i></i><i></i><i></i></div>
@@ -765,7 +783,7 @@
             <span class="tag">Swagger</span>
           </div>
 
-          <a href="https://github.com/MarkCalla159/CSE341-Mark-PersonalProject" target="_blank">
+          <a class="project-link" href="https://github.com/MarkCalla159/CSE341-Mark-PersonalProject" target="_blank">
             View repository →
           </a>
         </article>
@@ -796,7 +814,7 @@
             <span class="tag">PostgreSQL</span>
           </div>
 
-          <a href="https://github.com/MarkCalla159/CSE340" target="_blank">
+          <a class="project-link" href="https://github.com/MarkCalla159/CSE340" target="_blank">
             View repository →
           </a>
         </article>
@@ -827,7 +845,7 @@
             <span class="tag">.NET 10</span>
           </div>
 
-          <a href="https://github.com/MarkCalla159/CSE325/tree/main/BlazingPizzaSite" target="_blank">
+          <a class="project-link" href="https://github.com/MarkCalla159/CSE325/tree/main/BlazingPizzaSite" target="_blank">
             View application →
           </a>
         </article>
@@ -858,7 +876,7 @@
             <span class="tag">CSS</span>
           </div>
 
-          <a href="https://github.com/MarkCalla159/WDD330" target="_blank">
+          <a class="project-link" href="https://github.com/MarkCalla159/WDD330" target="_blank">
             View repository →
           </a>
         </article>
@@ -892,7 +910,7 @@
             <span class="tag">Kotlin</span>
           </div>
 
-          <a href="https://github.com/MarkCalla159/CSE310" target="_blank">
+          <a class="project-link" href="https://github.com/MarkCalla159/CSE310" target="_blank">
             View repository →
           </a>
         </article>
@@ -923,11 +941,10 @@
             <span class="tag">Responsive</span>
           </div>
 
-          <a href="https://github.com/MarkCalla159/wdd130" target="_blank">
+          <a class="project-link" href="https://github.com/MarkCalla159/wdd130" target="_blank">
             View repository →
           </a>
         </article>
-
       </div>
     </section>
 
@@ -959,24 +976,22 @@
     </section>
 
     <section id="contact" class="container">
-      <div class="info">
+      <div class="info contact-box">
         <div class="eyebrow">Have an idea?</div>
         <h2>Let’s build something useful.</h2>
         <p style="margin: 12px 0 18px;">
           Interested in technology, sports, or creating better digital experiences?
         </p>
-        <a class="button primary" href="mailto:markcalla@byui.edu">
+        <a class="button" href="mailto:markcalla@byui.edu">
           Send me an email ↗
         </a>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      © 2026 Mark Calla
-      <span style="float:right;">Built with curiosity and code.</span>
-    </div>
+  <footer class="container">
+    <span>© 2026 Mark Calla</span>
+    <span>Built with curiosity and code</span>
   </footer>
 
   <script>
